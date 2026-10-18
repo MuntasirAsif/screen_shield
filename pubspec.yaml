@@ -1,6 +1,6 @@
 name: screen_shield
 description: "Block screenshots and screen recording, and detect screen capture/mirroring, on Android and iOS."
-version: 0.1.1
+version: 0.1.2
 homepage: https://pub.dev/packages/screen_shield
 repository: https://github.com/MuntasirAsif/screen_shield
 

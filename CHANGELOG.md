@@ -1,3 +1,8 @@
+## 0.1.2
+
+* Docs only: README now reflects 0.1.1 behavior (install version, detection vs
+  blocking, iOS `screenshot` event while blocked). No API or native changes.
+
 ## 0.1.1
 
 * Fix iOS: `disable()` now sticks — backgrounding or dismissing a native modal
