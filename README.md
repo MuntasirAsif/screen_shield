@@ -29,7 +29,7 @@ what to do.
 
 ```yaml
 dependencies:
-  screen_shield: ^0.1.0
+  screen_shield: ^0.1.1
 ```
 
 ## Usage
@@ -79,7 +79,12 @@ await ScreenShield.disable();
   window, so other activities (pickers, share sheets, camera) are untouched.
 - Protection is re-applied on lifecycle events (Android Activity start; iOS
   `didBecomeActive` / window became key) so it survives backgrounding and
-  activity/scene recreation.
+  activity/scene recreation — but only while enabled. After `disable()` it stays
+  off; backgrounding or dismissing a native modal will not silently re-enable it.
+- **Detection is independent of blocking.** Recording/mirroring detection keeps
+  running while the plugin is attached regardless of `enable()` / `disable()`
+  (`enable`/`disable` only control blocking). Single screenshots are the exception
+  on Android — see Limitations.
 
 ## Limitations
 
@@ -93,7 +98,8 @@ await ScreenShield.disable();
   on future OS releases.
 - **Android screenshot detection is mutually exclusive with blocking.** The OS
   suppresses `registerScreenCaptureCallback` on secured windows, so the
-  `screenshot` event is only emitted while blocking is disabled.
+  `screenshot` event is only emitted while blocking is disabled. On iOS the
+  `screenshot` event fires regardless (the captured image is blank while blocked).
 - **Android recording detection is Android 15+ only.** Blocking still works on
   all versions.
 - **Google Play permissions.** `DETECT_SCREEN_RECORDING` and
