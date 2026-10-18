@@ -1,4 +1,4 @@
-package com.example.flutter_screen_protector_example
+package com.muntasirashif.screen_shield_example
 
 import io.flutter.embedding.android.FlutterActivity
 

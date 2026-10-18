@@ -1,3 +1,13 @@
+## 0.1.1
+
+* Fix iOS: `disable()` now sticks — backgrounding or dismissing a native modal
+  no longer silently re-applies protection after disabling.
+* Android: screen-recording detection is now independent of blocking (it stays
+  active while the plugin is attached), matching iOS.
+* Example: renamed app id to `com.muntasirashif.screen_shield_example`; add a
+  gitignore/CI cleanup and `.github/workflows/ci.yml`.
+* Docs: add `AGENTS.md`; set `repository` metadata.
+
 ## 0.1.0
 
 * Initial release.

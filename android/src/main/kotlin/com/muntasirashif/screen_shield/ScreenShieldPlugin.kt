@@ -112,12 +112,10 @@ class ScreenShieldPlugin :
                 enabled = true
                 suspended = false
                 syncProtection()
-                registerRecording()
                 result.success(null)
             }
             "disable" -> {
                 enabled = false
-                unregisterRecording()
                 syncProtection()
                 result.success(null)
             }

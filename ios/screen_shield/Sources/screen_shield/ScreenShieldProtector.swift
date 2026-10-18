@@ -37,6 +37,11 @@ enum ScreenShieldProtector {
     private static var secureField: UITextField?
     private static var hasSwizzled = false
 
+    /// Whether protection is currently desired. The plugin sets this on
+    /// enable/disable so that backgrounding or a dismissed modal cannot silently
+    /// re-apply protection after `disable()`.
+    static var isEnabled = true
+
     private static let isSimulator: Bool = {
         #if targetEnvironment(simulator)
         return true
@@ -68,6 +73,7 @@ enum ScreenShieldProtector {
         // The protected IOSurface only exists on real hardware, so this is a
         // no-op on the Simulator.
         if isSimulator { return }
+        if !isEnabled { return }
 
         guard let window = activeWindow() else { return }
         // Never touch the layer tree while a modal is presented; leave it
@@ -102,6 +108,7 @@ enum ScreenShieldProtector {
     /// Re-applies protection after a modal is dismissed. Deferred a runloop so
     /// UIKit has finished tearing the modal down.
     static func resume() {
+        guard isEnabled else { return }
         DispatchQueue.main.async { installOnActiveWindow() }
     }
 

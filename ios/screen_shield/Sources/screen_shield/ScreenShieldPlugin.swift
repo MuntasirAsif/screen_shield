@@ -17,6 +17,7 @@ public class ScreenShieldPlugin: NSObject, FlutterPlugin {
     instance.detector = ScreenShieldCaptureDetector.register(messenger: registrar.messenger())
 
     ScreenShieldProtector.start()
+    ScreenShieldProtector.isEnabled = instance.enabled
     instance.windowObserver = NotificationCenter.default.addObserver(
       forName: UIWindow.didBecomeKeyNotification, object: nil, queue: .main
     ) { _ in ScreenShieldProtector.installOnActiveWindow() }
@@ -41,10 +42,12 @@ public class ScreenShieldPlugin: NSObject, FlutterPlugin {
     switch call.method {
     case "enable":
       enabled = true
+      ScreenShieldProtector.isEnabled = true
       ScreenShieldProtector.resume()
       result(nil)
     case "disable":
       enabled = false
+      ScreenShieldProtector.isEnabled = false
       ScreenShieldProtector.suspend()
       result(nil)
     case "suspend":
