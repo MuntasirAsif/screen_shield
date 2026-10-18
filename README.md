@@ -29,7 +29,7 @@ what to do.
 
 ```yaml
 dependencies:
-  screen_shield: ^0.1.2
+  screen_shield: ^0.1.3
 ```
 
 ## Usage

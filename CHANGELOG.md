@@ -1,3 +1,8 @@
+## 0.1.3
+
+* Docs only: README install version now matches the release. No API or native
+  changes.
+
 ## 0.1.2
 
 * Docs only: README now reflects 0.1.1 behavior (install version, detection vs

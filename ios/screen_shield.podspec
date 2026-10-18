@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'screen_shield'
-  s.version          = '0.1.0'
+  s.version          = '0.1.3'
   s.summary          = 'Block screenshots/recording and detect screen capture on iOS and Android.'
   s.description      = <<-DESC
 Block screenshots and screen recording, and detect screen capture/mirroring, on Android and iOS.

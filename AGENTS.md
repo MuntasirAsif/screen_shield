@@ -59,7 +59,17 @@ analyze/test plus Android and iOS builds.
 ## Repo conventions
 - Renames ripple across `pubspec.yaml` plugin block, the Kotlin package dir, iOS
   source path + `screen_shield.podspec`/`Package.swift`, and example imports.
-- Release: bump `version:` in pubspec + add a `CHANGELOG.md` entry. pub.dev
-  metadata is immutable per published version, so metadata fixes require a new version.
+- Release checklist — do all of this in one commit, in this order, then publish:
+  1. Bump `version:` in `pubspec.yaml`.
+  2. Add a `CHANGELOG.md` entry.
+  3. Update all docs BEFORE publishing — the README install snippet
+     (`screen_shield: ^x.y.z`) must equal the new version; check `AGENTS.md` and
+     `example/` docs for stale version/name references too.
+  4. Commit + push, then `dart pub publish --dry-run` (expect 0 warnings) and
+     `dart pub publish`.
+- pub.dev renders the README and metadata from the published tarball, and a
+  published version is immutable. A doc or metadata fix therefore cannot be
+  retro-applied — it only takes effect in a NEW release. This is why the README
+  version must be updated in the same commit as the bump.
 - The example app uses id `com.muntasirashif.screen_shield_example`; the iOS
   example's bundle id is still the scaffold default (not renamed).
