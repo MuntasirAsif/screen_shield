@@ -16,7 +16,8 @@ analyze/test plus Android and iOS builds.
 - Android native unit test: `cd example/android && ./gradlew :screen_shield:testDebugUnitTest`
 - Android build: `cd example && flutter build apk --debug`
 - iOS build (macOS/Xcode only): `cd example && flutter build ios --debug --no-codesign`
-- Publish: `dart pub publish --dry-run`, then `dart pub publish`
+- Publish: `dart pub publish --dry-run`, then `dart pub publish` (warns unless the
+  git tree is clean and no gitignored files are checked in — commit first).
 
 ## Architecture / wiring
 - Channels are the whole contract; keep them identical across all three layers:
@@ -47,6 +48,10 @@ analyze/test plus Android and iOS builds.
 - Android recording detection is API 35+ (`VANILLA_ICE_CREAM`); screenshot
   detection is API 34+ (`UPSIDE_DOWN_CAKE`) and is only registered while blocking
   is OFF, because FLAG_SECURE suppresses it. Keep the runtime SDK_INT guards.
+- Detection is deliberately independent of blocking on both platforms: recording
+  detection is tied to the Android Activity lifecycle (attach/start/stop) and
+  registered once at plugin init on iOS; it is NOT toggled by `enable`/`disable`.
+  Don't re-couple them.
 - iOS blocking is a no-op on the Simulator; the Android emulator bypasses
   FLAG_SECURE. Block/detect can realistically be verified only on real devices.
 - Example uses file_picker v13 static API: `FilePicker.pickFiles()` (no `.platform`).
